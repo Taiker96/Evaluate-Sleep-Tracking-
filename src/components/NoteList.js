@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import NoteItem from './NoteItem';
 import { noteData } from './firebaseConnect';
 import moment from 'moment';
+import Calculating from './Calculating';
 
 class NoteList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataFirebase: []
+      dataFirebase: [],
+      cantPopup: false
     };
   }
 
@@ -39,7 +41,6 @@ class NoteList extends Component {
   getData = () => {
     //Trong firebase có bao nhiêu thì return in ra
     if (this.state.dataFirebase) {
-      // console.log(this.state.dataFirebase);
       return this.state.dataFirebase.map((value, key) => {
         //console.log(value.ifd); //Trong firebase nó đặt tên id là ifd ?? :v ??
         return (
@@ -49,6 +50,7 @@ class NoteList extends Component {
             note={value}
             noteTitle={value.noteTitle}
             noteContent={value.noteContent}
+            list={this.state.dataFirebase}
           />
         );
       });
@@ -59,14 +61,28 @@ class NoteList extends Component {
     let value = 0;
     const aaa = data.map(item => {
         const { noteContent = "" } = item;
+        //1.665
         let parseDot = parseFloat(noteContent);
+        // console.log(Number.isInteger(parseDot));
+        // Number.isInteger(parseDot) === false 
+        // ? parseDot - parseInt(parseDot)
+        // : parseDot
+        
+        // Number.isInteger(parseDot) === true 
+        // ? value += parseDot 
+        // : parseDot / parseDot 
+        // value += parseDot;
+        // return value;
         value += parseDot;
-        return value;
+        const resultPoint = value / data.length;
+        return resultPoint;
     });
-    // console.log(aaa.slice(-1)[0]);
-    // const getLast = aaa.slice(-1)[0];
-    // if(getlast > 7.5){}
-    // return aaa.slice(-1)[0];
+    const getLast = aaa.slice(-1)[0];
+    if(getLast){
+      return (<Calculating
+     getPoint={getLast}
+     />)
+    }
   }
 
   groupWeek(data) {
@@ -76,6 +92,8 @@ class NoteList extends Component {
     });
   }
   render() {
+    
+    
     const arrayData = this.state.dataFirebase.length;
     const nowYear = moment().format('YYYY');
     const weekOfYear = moment().week();
@@ -88,7 +106,7 @@ class NoteList extends Component {
           </div>
           {this.getData()}
 
-          {arrayData === 2
+          {arrayData === 7
             ?  this.checkPoint(this.state.dataFirebase)
             : // <div className="">
               //     <img src="https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjy-erdsIXnAhVrKqYKHRWLDUIQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fgood%2Bjob&psig=AOvVaw0mWtfWDkuFoeQkXGJ953UO&ust=1579169974448163"></img>

@@ -50,6 +50,13 @@ class NoteForm extends Component {
         var item = {}; //Tạo mãng rổng để chứ 2 phần tử vừa nhập vào
         item.noteTitle = content;
         item.noteContent = title;
+        // if(title - parseInt(title) !== 0){
+        //   console.log(title);
+        //   // const subtract = title - parseInt(title);
+        //   // console.log(subtract);
+        //   // const nhan = subtract * 1.665;  
+        //   // console.log(nhan);
+        // }
         item.toDay = moment().unix();
         //this.props.getData(item); //Chuyền data vừa nhập lên thằng cha (App) cách này là cách thường ko phải Redux
          this.props.addDataStore(item); //Xử dụng reducer trong store //dispatch({type:"ADD_DATA"}) đây mới là Redux
@@ -75,9 +82,9 @@ class NoteForm extends Component {
     <small id="helpIdNoteTitle" className="form-text text-muted">Điền tiêu đề vào đây</small>
   </div>
   <div className="form-group">
-    <label htmlFor="noteContent">Nội Dung Note</label>
+    <label htmlFor="noteContent">Số Giờ Và Phút</label>
     <input defaultValue={this.props.editItem.noteContent} onChange={(event) => this.isChange(event)} type="number" className="form-control" name="noteContent" id="noteContent" aria-describedby="helpIdNoteContent" placeholder="Tiêu đề Note" />
-    <small id="helpIdNoteTitle" className="form-text text-muted">Điền nội dung vào đây</small>
+    <small id="helpIdNoteTitle" className="form-text text-muted">*VD: Bạn ngủ được 7h45 phút bạn điền là: 7.45</small>
   </div>
   <button onClick={() => this.addData(this.state.noteContent, this.state.noteTitle)} type="reset" className="btn btn-primary btn-block">Submit</button>
   </form>

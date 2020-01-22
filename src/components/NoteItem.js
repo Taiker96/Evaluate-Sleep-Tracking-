@@ -18,11 +18,11 @@ class NoteItem extends Component {
     let message = "";
     
     if(parseNumber > 6 && parseNumber < 7){
-      return message.concat("6h ~ 7h Is Not Good Enought");
+      return message.concat("6h ~ 7h Is Not Good Enought, Please Fix This Right Away");
     }
     if(parseNumber >= 7 && parseNumber <= 7.5){
       return message.concat("7h ~ 7h30 Is Ok Time But I Can Permit You SomeThing Like Just 1 Day Per Week");
-    }if(parseNumber > 7.5 && parseNumber < 8.5){
+    }if(parseNumber > 7.5 && parseNumber <= 8.5){
       return message.concat("7h30 ~ 8h30 Absolutely Fantatic Time You Will Can Do Anything, God Bless You");
     }if(parseNumber > 8.5){
       return message.concat("8h, Hey Dude You Sleep To Much So Is Maybe Can Harm Your Health");
